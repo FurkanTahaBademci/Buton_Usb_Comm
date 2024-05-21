@@ -16,7 +16,7 @@ pip3 install pyserial
 ## Çalıştırmadan önce USB yetkilendirmesi yapılması gerekmektedir. Aşağıdaki komutu konsola yazdırın
 
 ```
-sudo chmod a+rw /dev/ttyUSB0
+echo "sudo chmod a+rw /dev/ttyUSB0" >> ~/.bashrc && source ~/.bashrc
 ```
 ## Çalıştırmak için:
 ```
