@@ -33,7 +33,7 @@ def read_serial(port, baudrate):
 # Programın ana giriş noktası
 if __name__ == "__main__":
     # Seri port olarak COM4 kullanılacak
-    port = 'COM4'
+    port = '/dev/ttyUSB0'
     # Bağlantı hızı olarak 115200 baudrate kullanılacak
     baudrate = 115200
     # Seri port okuma fonksiyonunu belirtilen port ve baudrate ile çağırır
