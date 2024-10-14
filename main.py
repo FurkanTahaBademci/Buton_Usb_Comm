@@ -9,6 +9,7 @@ import re
 def read_serial(port, baudrate):
     # Serial port nesnesini belirtilen port ve baudrate ile başlatır
     ser = serial.Serial(port, baudrate)
+    print(f"Connected to {port}")
     try:
         # Sonsuz döngü içinde veri bekler
         while True:
@@ -21,7 +22,7 @@ def read_serial(port, baudrate):
                 if match:
                     # Bulunan pin değerini yazdırır
                     pin_value = match.group(1)
-                    print(pin_value)
+                    print(f"Pin Value: {pin_value}")
     except KeyboardInterrupt:
         # Eğer kullanıcı klavyeden kesme işlemi yaparsa mesaj yazdırır
         print("Program durduruldu.")
@@ -29,12 +30,26 @@ def read_serial(port, baudrate):
         # Her durumda portu kapatmayı garantiler
         ser.close()
 
+def find_and_connect(baudrate):
+    # Mevcut tüm portları bulur
+    ports = serial.tools.list_ports.comports()
 
-# Programın ana giriş noktası
+    print("Detected ports len:",len(ports))
+
+    if len(ports) == 0:
+        print("No port detected")
+        return
+
+    for port in ports:
+        print(f"Trying to connect to {port.device}")
+        try:
+            read_serial(port.device, baudrate)
+            break  # Bağlantı başarılı olursa döngüden çık
+        except serial.SerialException:
+            print(f"Failed to connect to {port.device}")
+
 if __name__ == "__main__":
-    # Seri port olarak COM4 kullanılacak
-    port = '/dev/ttyUSB0'
     # Bağlantı hızı olarak 115200 baudrate kullanılacak
     baudrate = 115200
-    # Seri port okuma fonksiyonunu belirtilen port ve baudrate ile çağırır
-    read_serial(port, baudrate)
+    # Mevcut portları bulup bağlanmayı dener
+    find_and_connect(baudrate)
