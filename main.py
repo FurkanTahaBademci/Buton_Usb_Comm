@@ -1,5 +1,5 @@
 # Python'un 'serial' modülünü içe aktararak seri port işlemleri için gerekli fonksiyonlara erişim sağlar
-import serial
+import serial.tools.list_ports
 # Python'un 're' modülünü içe aktararak düzenli ifade işlemleri için gerekli fonksiyonlara erişim sağlar
 import re
 
